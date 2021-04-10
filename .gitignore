@@ -1,2 +1,8 @@
 dronerush/__pycache__/__init__.cpython-39.pyc
 dronerush/__pycache__/settings.cpython-39.pyc
+.vscode/launch.json
+dronerush/__pycache__/urls.cpython-39.pyc
+drones/__pycache__/__init__.cpython-39.pyc
+drones/__pycache__/admin.cpython-39.pyc
+drones/__pycache__/models.cpython-39.pyc
+db.sqlite3
