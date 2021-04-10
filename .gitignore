@@ -6,3 +6,8 @@ drones/__pycache__/__init__.cpython-39.pyc
 drones/__pycache__/admin.cpython-39.pyc
 drones/__pycache__/models.cpython-39.pyc
 db.sqlite3
+drones/__pycache__/serializers.cpython-39.pyc
+drones/__pycache__/urls.cpython-39.pyc
+drones/__pycache__/views.cpython-39.pyc
+drones/migrations/__pycache__/0002_auto_20210410_1642.cpython-39.pyc
+dronerush/__pycache__/wsgi.cpython-39.pyc
