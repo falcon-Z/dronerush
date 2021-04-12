@@ -4,14 +4,36 @@ from drones.models import Drone
 from drones.models import Pilot
 from drones.models import Competition
 import drones.views
+from django.contrib.auth.models import User
+
+
+class UserDroneSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Drone
+        fields = (
+            'url',
+            'name')
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    drones = UserDroneSerializer(
+        many=True,
+        read_only=True)
+
+    class Meta:
+        model = User
+        fields = (
+            'url',
+            'pk',
+            'username',
+            'drone')
 
 
 class DroneCategorySerializer(serializers.HyperlinkedModelSerializer):
     drones = serializers.HyperlinkedRelatedField(
         many=True,
         read_only=True,
-        view_name='drone-detail'
-    )
+        view_name='drone-detail')
 
     class Meta:
         model = DroneCategory
@@ -19,14 +41,15 @@ class DroneCategorySerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'pk',
             'name',
-            'drones'
-        )
+            'drones')
 
 
 class DroneSerializer(serializers.HyperlinkedModelSerializer):
     # Display the category name
-    drone_category = serializers.SlugRelatedField(
-        queryset=DroneCategory.objects.all(), slug_field='name')
+    drone_category = serializers.SlugRelatedField(queryset=DroneCategory.objects.all(),
+                                                  slug_field='name')
+    # Display the owner's username (read-only)
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Drone
@@ -34,10 +57,10 @@ class DroneSerializer(serializers.HyperlinkedModelSerializer):
             'url',
             'name',
             'drone_category',
+            'owner',
             'manufacturing_date',
             'has_it_competed',
-            'inserted_timestamp'
-        )
+            'inserted_timestamp')
 
 
 class CompetitionSerializer(serializers.HyperlinkedModelSerializer):
@@ -51,8 +74,7 @@ class CompetitionSerializer(serializers.HyperlinkedModelSerializer):
             'pk',
             'distance_in_feet',
             'distance_achievement_date',
-            'drone'
-        )
+            'drone')
 
 
 class PilotSerializer(serializers.HyperlinkedModelSerializer):
@@ -61,8 +83,7 @@ class PilotSerializer(serializers.HyperlinkedModelSerializer):
         choices=Pilot.GENDER_CHOICES)
     gender_description = serializers.CharField(
         source='get_gender_display',
-        read_only=True
-    )
+        read_only=True)
 
     class Meta:
         model = Pilot
@@ -73,8 +94,8 @@ class PilotSerializer(serializers.HyperlinkedModelSerializer):
             'gender_description',
             'races_count',
             'inserted_timestamp',
-            'competitions'
-        )
+            'competitions')
+
 
 class PilotCompetitionSerializer(serializers.ModelSerializer):
     # Display the pilot's name
@@ -92,5 +113,4 @@ class PilotCompetitionSerializer(serializers.ModelSerializer):
             'distance_in_feet',
             'distance_achievement_date',
             'pilot',
-            'drone'
-        )
+            'drone')
