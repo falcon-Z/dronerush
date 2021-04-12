@@ -11,3 +11,5 @@ drones/__pycache__/urls.cpython-39.pyc
 drones/__pycache__/views.cpython-39.pyc
 drones/migrations/__pycache__/0002_auto_20210410_1642.cpython-39.pyc
 dronerush/__pycache__/wsgi.cpython-39.pyc
+drones/v2/__pycache__/urls.cpython-39.pyc
+drones/v2/__pycache__/views.cpython-39.pyc
